@@ -1,0 +1,44 @@
+<section class="vh-100">
+  <form action="">
+
+  </form>
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example13">Email address</label>
+            <input type="email" id="form1Example13" class="form-control form-control-lg" formControlName="Email" />
+            <small *ngIf="loginForm.controls['Email'].dirty && loginForm.hasError('required','Email')" class="text-danger">email required</small>
+            <br>
+            <small *ngIf="!loginForm.controls['Email'].valid && loginForm.controls['Email'].dirty" class="text-danger">Invalid email</small>
+
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example23">Password</label>
+            <input type="password" id="form1Example23" class="form-control form-control-lg" formControlName="Password" />
+            <small *ngIf="loginForm.controls['Password'].dirty && loginForm.hasError('required','Password')" class="text-danger">Password required</small>
+            <br>
+            <small *ngIf="!loginForm.controls['Password'].valid && loginForm.controls['Password'].dirty" class="text-danger">Invalid Password</small>
+
+          </div>
+
+          <div class="d-flex justify-content-around align-items-center mb-4">
+            <a [routerLink]="['/emailink']">Forgot password?</a>
+          </div>
+
+          <!-- Submit button -->
+          <button [disabled]="blocknextrequest == false" type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+

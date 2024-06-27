@@ -1,0 +1,86 @@
+<section class="py-5">
+  <div class="container px-4 px-lg-5 my-5">
+      <div class="row gx-4 gx-lg-5 align-items-center justify-content-center">
+          <!-- Image and Description Column -->
+          <div class="col-md-8 mb-4">
+              <div class="card shadow-sm">
+                  <img class="card-img-top" [src]="item?.pathImg" alt="Item image" style="width: 100%; height: auto; max-height: 600px; object-fit: cover;"/>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ item?.Description }}</h5>
+                      <div *ngIf="item?.categoryName?.length">
+                          <h6 class="card-subtitle mb-2 text-muted">Categories:</h6>
+                          <ul class="list-unstyled">
+                              <li *ngFor="let cate of item?.categoryName" class="badge badge-primary mr-1">{{ cate }}</li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <button (click)="downloadDocument()" class="btn btn-link">file_download</button>
+              </div>
+          </div>
+          <!-- Bids Column -->
+          <div class="col-md-4 d-flex flex-column align-items-center">
+              <div class="scrollable-container w-100">
+                  <div class="col-xl-12 col-lg-12 mb-4" *ngFor="let item of listBid">
+                      <div class="card l-bg-cherry mb-3 shadow-sm">
+                          <div class="card-body p-3">
+                              <div class="d-flex justify-content-between align-items-center mb-3">
+                                  <h5 class="card-title mb-0">{{ item.userEmail }}</h5>
+                                  <img [src]="item.userImage" width="50px" height="50px" class="rounded-circle" alt="{{ item.userEmail }}">
+                              </div>
+                              <h2 class="d-flex align-items-center mb-0">{{ item.bidAmount }}</h2>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="text-center mt-4">
+          <button class="btn btn-outline-dark" (click)="showForm()" type="button">
+              Place a Bid
+          </button>
+      </div>
+  </div>
+</section>
+
+
+
+<!-- place bid -->
+
+<div id="myA" style=" position: fixed; width: 100%; height: 100%; top: 0; left: 0; background-color: rgba(0,0,0,0.5); z-index: 2;" *ngIf="isShowForm">
+  <div class="bigdiv">
+    <div class="div1">
+      <div class="div1A" >
+        <p class="p-1" id="">
+          <span style="font-size: 25px; font-weight: 70"
+            >Place your bid</span
+          >
+          <br />
+          <small>provide mail</small>
+        </p>
+      </div>
+    </div>
+    <div class="div2">
+      <div class="form-group pt-3">
+        <div class="input-field">
+          <input type="number" [(ngModel)]="bidAmount" placeholder="Place your bid here"  class="form-control form-control-lg" />
+        >
+        </div>
+      </div>
+    </div>
+    <br>
+    <div  class="div3">
+      <div class="div3A">
+      <button
+        id="closeBtn"
+        class="btn btn-secondary"
+        (click)="showForm()"
+      >
+        Close
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="blockNextRequest == false" (click)="placeOneBid()">place bid</button>
+    </div>
+    </div>
+  </div>
+</div>

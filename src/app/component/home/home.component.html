@@ -1,0 +1,104 @@
+<!-- <section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-12 col-lg-4 mb-4 mb-lg-0" *ngFor="let product of products">
+        <div class="card">
+          <div class="d-flex justify-content-between p-3">
+            <p class="lead mb-0">{{ product.Name }}</p>
+            <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+              style="width: 35px; height: 35px;">
+            </div>
+          </div>
+          <img [src]="product.pathImg" class="card-img-top" alt="Product Image"  width="100px" height="120px"/>
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+            </div>
+
+            <div class="d-flex justify-content-between mb-3">
+              <h5 class="mb-0">Email:{{product.Email}}</h5>
+              <h5 class="mb-0"></h5>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2">
+              <div class="ms-auto text-warning">
+                <a [routerLink]="['/item', product.id]">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <mat-paginator [length]="totalItem" [pageSize]="pageSize" (page)="onPageChange($event,selectedTable)">pages</mat-paginator>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+        <form action="" (ngSubmit)="submitForm()" [formGroup]="searchItem">
+          <div class="form-group mb-3">
+            <div class="dropdown">
+              <button (click)="toggleDropdown()" class="btn btn-primary dropdown-toggle" type="button">
+                <span class="btn-text">Categories</span>
+              </button>
+              <div class="dropdown-menu" [ngClass]="{'show': isDropdownOpen}">
+                <div *ngFor="let category of categoryArray" class="dropdown-item">
+                  <input type="checkbox" [value]="category.name" name="categories" id="category.id"
+                  (change)="selectCategory(category.name)" [checked]="selectedCategory === category.name" [value]="''"
+                  formControlName="CategoryName">
+                  <label for="category-{{category.id}}" class="ml-2">{{ category.name }}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" formControlName="ItemName" placeholder="Search for products...">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-4 mb-4 mb-lg-0" *ngFor="let product of products">
+        <div class="card">
+          <div class="d-flex justify-content-between p-3">
+            <p class="lead mb-0">{{ product.Name }}</p>
+            <div class="bg-info rounded d-flex align-items-center justify-content-center shadow-1-strong"
+            style="width: auto; max-width: 150px; padding: 10px;">
+           <p class="m-0 text-center" style="font-size: 14px; font-weight: bold;">
+               Winning Price: {{ product.WinningPrice }}
+           </p>
+       </div>
+
+          </div>
+          <img [src]="product.pathImg" class="card-img-top" alt="Product Image" width="100px" height="120px"/>
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+            </div>
+            <div class="d-flex justify-content-between mb-3">
+              <h5 class="mb-0">Email:{{product.Email}}</h5>
+              <h5 class="mb-0"></h5>
+            </div>
+            <div *ngIf="timeMessage" class="mb-3">
+              <h4 class="text-primary">Time Left:</h4>
+              <p class="text-danger">{{ timeMessage }}</p>
+          </div>
+            <div class="d-flex justify-content-between mb-2">
+              <div class="ms-auto text-warning">
+                <a [routerLink]="['/item', product.id]">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <mat-paginator [length]="totalItem" [pageSize]="pageSize" (page)="onPageChange($event,selectedTable)">pages</mat-paginator>
+      </div>
+    </div>
+  </div>
+</section>
+
