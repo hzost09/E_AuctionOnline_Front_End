@@ -1,0 +1,149 @@
+
+<section>
+  <div id="wrapper" >
+
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+          <!-- Sidebar -->
+          <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+              <!-- Sidebar - Brand -->
+              <div class="sidebar-brand d-flex align-items-center justify-content-center">
+                  <div class="sidebar-brand-icon rotate-n-15">
+                      <i class="fas fa-laugh-wink"></i>
+                  </div>
+                  <div class="sidebar-brand-text mx-3">SB Admin</div>
+              </div>
+
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="li1">
+                <a class="a1" (click)="changenumbertable(1)">user</a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="li1">
+                <a class="a1" (click)="changenumbertable(2)">Item</a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider d-none d-md-block">
+              <li class="li1">
+                <a class="a1" (click)="changenumbertable(3)"> category</a>
+              </li>
+              <hr class="sidebar-divider d-none d-md-block">
+          </ul>
+          <!-- End of Sidebar -->
+
+      </div>
+      <!-- table1 -->
+      <table class="table" *ngIf="selectedTable == 1">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">EmailConfrim</th>
+            <th scope="col">Item Sold number</th>
+            <th scope="col">Block</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of usersArray">
+            <td>{{ item.Name }}</td>
+            <td>{{ item.Email }}</td>
+            <td>{{ item.Role }}</td>
+            <td>{{ item.EmailConfrim }}</td>
+            <td>{{ item.ItemSold }}</td>
+            <td><button>Block</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- table2 -->
+      <table class="table" *ngIf="selectedTable == 2">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">description</th>
+            <th scope="col">Email</th>
+            <th scope="col">Detail</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of itemArray">
+            <td>{{ item.name }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.description }}</td>
+            <td><button  (click)="getItemWithCategorylistbyId(item.id)">Get list category </button></td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- table3 -->
+      <table class="table" *ngIf="selectedTable == 3">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">description</th>
+            <th scope="col">Action</th>
+            <th  scope="col"><button  (click)="OnOffForm()" style="right: 0%;">Create</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of categoryArray">
+            <td>{{ item.name }}</td>
+            <td>{{ item.description }}</td>
+            <td><button (click)="showFormCategory(item.id)">Edit</button>||<button>Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div *ngIf="selectedTable == 1">
+    <mat-paginator [length]="totalUser" [pageSize]="pageSize" (page)="onPageChange($event,selectedTable)">pages</mat-paginator>
+  </div>
+  <div *ngIf="selectedTable == 2">
+    <mat-paginator [length]="totalItem" [pageSize]="pageSize" (page)="onPageChange($event,selectedTable)">pages</mat-paginator>
+  </div>
+  <!-- hidden form edit and create category -->
+</section>
+
+<!-- hidden categorylist table -->
+  <div id="overlay" *ngIf="showtable">
+    <table id="hidden-table" class="table">
+      <thead>
+        <tr>
+            <th>category </th>
+            <th>description </th>
+            <th>status </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of Categorieslist">
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td><button (click)="addORdeleteCastegory(item.id,item.itemId)">{{item.belong ? 'Delete':'Add'}}</button></td>
+        </tr>
+    </tbody>
+    <button id="pretty-button" (click)="closeTable()">close</button>
+    </table>
+  </div>
+
+<div id="overlay" *ngIf="showForm">
+  <div id="hidden-form" *ngIf="showForm">
+    <button id="close-button" (click)="OnOffForm()" style="position: absolute; right: 10px; top: 10px;">x</button>
+    <form [formGroup]="categoryForm" (ngSubmit)="createOrupdate()">
+      <div>
+        <input type="text" class="form-control" hidden formControlName="id">
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name">
+        <small *ngIf="categoryForm.controls['name'].dirty && categoryForm.hasError('required','name')" class="text-danger">Name required</small>
+      </div>
+      <div class="mb-3">
+        <label for="Description" class="form-label">Description</label>
+        <input type="text" class="form-control" formControlName="description">
+        <small *ngIf="categoryForm.controls['description'].dirty && categoryForm.hasError('required','description')" class="text-danger">Description required</small>
+      </div>
+      <button type="submit" [disabled]="blocknextrequest == false" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>

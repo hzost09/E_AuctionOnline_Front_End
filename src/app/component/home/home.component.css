@@ -1,0 +1,53 @@
+.btn-primary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styles for the dropdown button */
+.btn-primary.dropdown-toggle {
+  width: 100%;
+  text-align: left;
+}
+
+/* Styles for the dropdown menu */
+.dropdown-menu {
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 4px 4px;
+  padding: 0;
+}
+
+/* Show the dropdown menu when the 'show' class is added */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Styles for each dropdown item */
+.dropdown-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* Style for the input checkbox */
+.dropdown-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Hover effect for dropdown items */
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+/* Optional: Style the label for better alignment */
+.dropdown-item label {
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Style for form group */
+.form-group {
+  margin-bottom: 1rem;
+}

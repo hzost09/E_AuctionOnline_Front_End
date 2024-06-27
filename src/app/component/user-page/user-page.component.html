@@ -1,0 +1,139 @@
+
+<section>
+  <div id="wrapper" >
+
+      <!-- Page Wrapper -->
+      <div id="wrapper">
+          <!-- Sidebar -->
+          <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+              <!-- Sidebar - Brand -->
+              <div class="sidebar-brand d-flex align-items-center justify-content-center">
+                  <div class="sidebar-brand-icon rotate-n-15">
+                      <i class="fas fa-laugh-wink"></i>
+                  </div>
+                  <div class="sidebar-brand-text mx-3">SB Admin</div>
+              </div>
+
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="li1">
+                <a class="a1" (click)="changenumbertable(1)">user</a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider">
+              <li class="li1">
+                <a class="a1" (click)="getlistItembyUser()">Item</a>
+              </li>
+              <!-- Divider -->
+              <hr class="sidebar-divider d-none d-md-block">
+              <li class="li1">
+                <a class="a1" (click)="changenumbertable(3)"> sell item</a>
+              </li>
+              <hr class="sidebar-divider d-none d-md-block">
+          </ul>
+          <!-- End of Sidebar -->
+        </div>
+        <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- user card -->
+<div class="card" *ngIf="selectedTable == 1">
+  <img src="{{UserDetails?.avatar}}" alt="image" style="width:100%">
+  <h2>{{UserDetails?.name}}</h2>
+  <p><button>{{UserDetails?.email}}</button></p>
+</div>
+<!-- list item -->
+<table class="table" *ngIf="selectedTable == 2">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Image</th>
+      <th scope="col">Winning Price</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of itemArray">
+      <td>{{ item.name }}</td>
+      <td>{{ item.description }}</td>
+      <td><img src="{{item.image}}" alt="img" width="100px" height="100px"></td>
+      <td>{{ item.winningPrice }}</td>
+      <td>Edit</td>
+    </tr>
+  </tbody>
+</table>
+<div class="container" *ngIf="selectedTable == 3">
+  <h2>Create New Sell Item</h2>
+  <form (ngSubmit)="submitForm()" [formGroup]="sellItemForm">
+    <div class="form-group">
+      <label for="itemName">Item Name</label>
+      <input type="text" class="form-control" formControlName="ItemName" required>
+    </div>
+    <div class="form-group">
+      <label for="itemDescription">Item Description</label>
+      <textarea class="form-control" id="itemDescription" formControlName="ItemDescription"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="beginPrice">Begin Price</label>
+      <input type="number" class="form-control" id="beginPrice" formControlName="BeginPrice" required>
+    </div>
+    <div class="form-group">
+      <label for="upPrice">Up Price</label>
+      <input type="number" class="form-control" id="upPrice" formControlName="UpPrice" required>
+    </div>
+    <div class="form-group">
+      <label for="winningPrice">Winning Price</label>
+      <input type="number" class="form-control" id="winningPrice" formControlName="WinningPrice" required>
+    </div>
+    <div class="form-group">
+      <label for="itemImage">Item Image</label>
+      <input type="file" class="form-control-file" id="itemImage" name="itemImage" (change)="onImageSelected($event)" accept="image/*">
+    </div>
+    <div class="form-group" >
+      <label for="itemDocument">Item Document</label>
+      <input type="file" class="form-control-file" id="itemDocument" name="itemDocument" (change)="onDocumentSelected($event)">
+    </div>
+    <div class="form-group">
+      <label for="winningPrice"  *ngIf="ishiding">Email</label>
+      <input type="text" class="form-control" id="winningPrice" formControlName="Email" required>
+    </div>
+    <div class="form-group" *ngIf="ishiding">
+      <label for="winningPrice">sellerId</label>
+      <input type="number" class="form-control" id="winningPrice" formControlName="sellerId" required>
+    </div>
+    <div class="dropdown" [ngClass]="{'show': isDropdownOpen}" #dropdown>
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="categoryDropdown"
+              (click)="toggleDropdown()" aria-haspopup="true" aria-expanded="false">
+        Select Categories
+      </button>
+      <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+        <div *ngFor="let category of categoryArray">
+          <div class="dropdown-item">
+            <input  type="checkbox" [value]="category.id" (change)="onCategorySelected(category.id, $event)">
+            <label>{{ category.name }}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div *ngIf="isFormSubmitted && !isAtLeastOneCheckboxChecked && !sellItemForm.get('CategoryModel')?.touched" class="text-danger">Please select at least one category.</div>
+
+    <br>
+    <div class="form-group">
+      <label for="beginDate">Begin Date</label>
+      <input type="datetime-local" class="form-control" id="beginDate" formControlName="BeginDate">
+    </div>
+    <div class="form-group">
+      <label for="endDate">End Date</label>
+      <input type="datetime-local" class="form-control" id="endDate" formControlName="EndDate">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="sellItemForm.invalid">Submit</button>
+  </form>
+</div>
+</div>
+
+
+  <!-- hidden form edit and create category -->
+</section>
+
